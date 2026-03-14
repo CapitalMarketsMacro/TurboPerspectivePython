@@ -10,7 +10,7 @@ _SOLACE_REQUIRED = [
     "SOLACE_VPN",
     "SOLACE_USERNAME",
     "SOLACE_PASSWORD",
-    "SOLACE_QUEUE",
+    "SOLACE_TOPIC",
 ]
 
 _NATS_REQUIRED = [
@@ -29,7 +29,7 @@ class Settings:
     solace_vpn: str = ""
     solace_username: str = ""
     solace_password: str = ""
-    solace_queue: str = ""
+    solace_topic: str = ""
 
     # NATS settings
     nats_url: str = ""
@@ -66,7 +66,7 @@ def load_settings(feed_source: str = "solace") -> Settings:
         solace_vpn=os.environ.get("SOLACE_VPN", ""),
         solace_username=os.environ.get("SOLACE_USERNAME", ""),
         solace_password=os.environ.get("SOLACE_PASSWORD", ""),
-        solace_queue=os.environ.get("SOLACE_QUEUE", ""),
+        solace_topic=os.environ.get("SOLACE_TOPIC", ""),
         # NATS
         nats_url=os.environ.get("NATS_URL", ""),
         nats_creds_file=os.environ.get("NATS_CREDS_FILE", ""),

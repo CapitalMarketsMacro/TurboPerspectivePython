@@ -41,7 +41,7 @@ def main():
 
         service, receiver = start_receiver(settings, adapter)
         source_display = settings.solace_host
-        queue_display = settings.solace_queue
+        queue_display = settings.solace_topic
     else:
         from nats_receiver import start_nats_receiver
 
@@ -60,7 +60,7 @@ def main():
         "\n  Table     : fx_executions (limit: %s rows)"
         "\n  Source    : %s"
         "\n  Broker    : %s"
-        "\n  Queue     : %s"
+        "\n  Topic     : %s"
         "\n  Flush     : %sms batch window"
         "\n=========================================",
         settings.perspective_port,

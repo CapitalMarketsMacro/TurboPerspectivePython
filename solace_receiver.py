@@ -3,10 +3,7 @@ import logging
 from solace.messaging.messaging_service import MessagingService
 from solace.messaging.receiver.message_receiver import MessageHandler
 from solace.messaging.receiver.inbound_message import InboundMessage
-from solace.messaging.resources.queue import Queue
-from solace.messaging.config.missing_resources_creation_configuration import (
-    MissingResourcesCreationStrategy,
-)
+from solace.messaging.resources.topic_subscription import TopicSubscription
 
 from config import Settings
 from feed_adapter import FeedAdapter
@@ -23,14 +20,12 @@ class _ServiceInterruptionListener:
 
 
 class ExecutionMessageHandler(MessageHandler):
-    def __init__(self, feed_adapter: FeedAdapter, receiver):
+    def __init__(self, feed_adapter: FeedAdapter):
         self._adapter = feed_adapter
-        self._receiver = receiver
 
     def on_message(self, message: InboundMessage) -> None:
         payload = message.get_payload_as_string()
         self._adapter.on_message(payload)
-        self._receiver.ack(message)
 
 
 def build_messaging_service(settings: Settings) -> MessagingService:
@@ -51,23 +46,22 @@ def build_messaging_service(settings: Settings) -> MessagingService:
 
 def start_receiver(settings: Settings, feed_adapter: FeedAdapter):
     """
-    Connect to Solace and start consuming.
+    Connect to Solace and start consuming via direct topic subscription.
     Returns the (service, receiver) tuple for shutdown.
     """
     service = build_messaging_service(settings)
     service.add_reconnection_listener(_ServiceInterruptionListener())
 
+    topic = TopicSubscription.of(settings.solace_topic)
     receiver = (
-        service.create_persistent_message_receiver_builder()
-        .with_missing_resources_creation_strategy(
-            MissingResourcesCreationStrategy.CREATE_ON_START
-        )
-        .build(Queue.durable_exclusively_shared_queue(settings.solace_queue))
+        service.create_direct_message_receiver_builder()
+        .with_subscriptions([topic])
+        .build()
     )
     receiver.start()
-    log.info("Solace receiver started on queue '%s'", settings.solace_queue)
+    log.info("Solace direct receiver started on topic '%s'", settings.solace_topic)
 
-    handler = ExecutionMessageHandler(feed_adapter, receiver)
+    handler = ExecutionMessageHandler(feed_adapter)
     receiver.receive_async(handler)
 
     return service, receiver
