@@ -1,0 +1,6 @@
+perspective-python==4.1.1
+tornado==6.4
+pyarrow==18.1.0
+solace-pubsubplus==1.11.0
+nats-py==2.9.0
+python-dotenv==1.0.0

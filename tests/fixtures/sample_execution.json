@@ -1,0 +1,17 @@
+{
+  "trade_id": "T-20240314-001",
+  "ccy_pair": "EUR/USD",
+  "side": "BUY",
+  "notional": 1000000.0,
+  "rate": 1.082350,
+  "venue": "EBS",
+  "trader_id": "TR001",
+  "desk": "EMEA_SPOT",
+  "status": "FILLED",
+  "exec_time": "2024-03-14T09:30:01.123Z",
+  "value_date": "2024-03-16",
+  "counterparty": "JPMORGAN",
+  "pnl": 1250.50,
+  "spot_rate": 1.082300,
+  "sequence_num": 1
+}
