@@ -29,16 +29,24 @@ class ExecutionMessageHandler(MessageHandler):
 
 
 def build_messaging_service(settings: Settings) -> MessagingService:
+    props = {
+        "solace.messaging.transport.host": settings.solace_host,
+        "solace.messaging.service.vpn-name": settings.solace_vpn,
+        "solace.messaging.authentication.basic.username": settings.solace_username,
+        "solace.messaging.authentication.basic.password": settings.solace_password,
+    }
+
+    if settings.solace_trust_store_path:
+        props["solace.messaging.tls.trust-store-path"] = settings.solace_trust_store_path
+    else:
+        # Skip server certificate validation (dev/test only)
+        props["solace.messaging.tls.cert-validated"] = False
+        props["solace.messaging.tls.cert-reject-expired"] = False
+        props["solace.messaging.tls.cert-validate-servername"] = False
+
     return (
         MessagingService.builder()
-        .from_properties(
-            {
-                "solace.messaging.transport.host": settings.solace_host,
-                "solace.messaging.service.vpn-name": settings.solace_vpn,
-                "solace.messaging.authentication.basic.username": settings.solace_username,
-                "solace.messaging.authentication.basic.password": settings.solace_password,
-            }
-        )
+        .from_properties(props)
         .build()
         .connect()
     )

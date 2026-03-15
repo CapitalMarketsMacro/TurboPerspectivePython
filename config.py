@@ -30,6 +30,7 @@ class Settings:
     solace_username: str = ""
     solace_password: str = ""
     solace_topic: str = ""
+    solace_trust_store_path: str = ""
 
     # NATS settings
     nats_url: str = ""
@@ -67,6 +68,7 @@ def load_settings(feed_source: str = "solace") -> Settings:
         solace_username=os.environ.get("SOLACE_USERNAME", ""),
         solace_password=os.environ.get("SOLACE_PASSWORD", ""),
         solace_topic=os.environ.get("SOLACE_TOPIC", ""),
+        solace_trust_store_path=os.environ.get("SOLACE_TRUST_STORE_PATH", ""),
         # NATS
         nats_url=os.environ.get("NATS_URL", ""),
         nats_creds_file=os.environ.get("NATS_CREDS_FILE", ""),
