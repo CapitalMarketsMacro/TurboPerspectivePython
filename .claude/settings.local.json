@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "Bash(which ng:*)",
+      "Bash(which node:*)",
+      "Bash(cd:*)",
+      "WebFetch(domain:perspective-dev.github.io)",
+      "Bash(grep:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh api:*)"
+    ]
+  }
+}
