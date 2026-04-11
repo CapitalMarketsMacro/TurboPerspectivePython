@@ -34,10 +34,10 @@ async def main():
             execution = make_execution()
             payload = json.dumps(execution).encode()
             await nc.publish(NATS_SUBJECT, payload)
-            print(f"  seq={execution['sequence_num']:>6}  {execution['ccy_pair']}  "
-                  f"{execution['side']:4}  {execution['notional']:>12,.0f}  "
-                  f"@ {execution['rate']:.6f}")
-            await asyncio.sleep(1)
+            # print(f"  seq={execution['sequence_num']:>6}  {execution['ccy_pair']}  "
+            #       f"{execution['side']:4}  {execution['notional']:>12,.0f}  "
+            #       f"@ {execution['rate']:.6f}")
+            await asyncio.sleep(0.0005)
     except KeyboardInterrupt:
         print("\nStopping publisher...")
     finally:

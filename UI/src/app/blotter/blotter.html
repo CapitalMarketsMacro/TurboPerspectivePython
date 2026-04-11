@@ -1,10 +1,9 @@
 <div class="blotter-container">
   <header class="blotter-header">
     <h1>FX Executions Blotter</h1>
-    <span class="status" [class.connected]="status === 'Connected'"
-                          [class.disconnected]="status === 'Disconnected'">
-      {{ status }}
+    <span class="status" [class.connected]="status() === 'Connected'" [class.disconnected]="status() === 'Disconnected'">
+      {{ status() }}
     </span>
   </header>
-  <perspective-viewer #viewer></perspective-viewer>
+  <app-perspective-viewer-host (statusChange)="onStatusChange($event)"></app-perspective-viewer-host>
 </div>

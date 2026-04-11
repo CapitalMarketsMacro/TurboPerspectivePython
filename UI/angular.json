@@ -48,7 +48,56 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "ignore": [
+                  "perspective/**",
+                  "wasm/**"
+                ]
+              },
+              {
+                "glob": "perspective.js",
+                "input": "node_modules/@perspective-dev/client/dist/cdn",
+                "output": "perspective"
+              },
+              {
+                "glob": "perspective-server.worker.js",
+                "input": "node_modules/@perspective-dev/client/dist/cdn",
+                "output": "perspective"
+              },
+              {
+                "glob": "perspective-viewer.js",
+                "input": "node_modules/@perspective-dev/viewer/dist/cdn",
+                "output": "perspective"
+              },
+              {
+                "glob": "perspective-viewer-datagrid.js",
+                "input": "node_modules/@perspective-dev/viewer-datagrid/dist/cdn",
+                "output": "perspective"
+              },
+              {
+                "glob": "perspective-viewer-d3fc.js",
+                "input": "node_modules/@perspective-dev/viewer-d3fc/dist/cdn",
+                "output": "perspective"
+              },
+              {
+                "glob": "*.css",
+                "input": "node_modules/@perspective-dev/viewer/dist/css",
+                "output": "perspective"
+              },
+              {
+                "glob": "perspective-viewer-datagrid.css",
+                "input": "node_modules/@perspective-dev/viewer-datagrid/dist/css",
+                "output": "perspective"
+              },
+              {
+                "glob": "perspective-viewer-d3fc.css",
+                "input": "node_modules/@perspective-dev/viewer-d3fc/dist/css",
+                "output": "perspective"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@perspective-dev/viewer/dist/wasm",
+                "output": "wasm"
               }
             ],
             "styles": [
